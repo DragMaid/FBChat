@@ -1,0 +1,228 @@
+<Item1>
+    ImageLeftWidget:
+        source: "icons8-donation-64.png"
+
+<Item2>
+    ImageLeftWidget:
+        source: "icons8-export-26.png"
+Yami:
+	username: username 
+	password: password 
+	name: name 
+	times: times 
+	text_input: text_input 
+	search: search 
+	pic1: pic1 
+	Screen:
+		name: "screen1"
+		FloatLayout:
+			canvas:
+				Rectangle:
+					size: self.size 
+					pos: self.pos 
+					source: "BotLogo.png"
+			MDTextField:
+				id: username 
+				required: True
+			    hint_text: "Username"
+			    mode: "rectangle"
+				size_hint: .8 , .1
+				pos_hint: {"center_x":.5, "center_y":.6}
+				multiline: False
+				font_size: 20
+
+			MDTextField:
+				id: password
+				required: True
+			    hint_text: "Password"
+			    mode: "rectangle"
+				size_hint: .8 , .1
+				pos_hint: {"center_x":.5, "center_y":.45}
+				multiline: False
+				font_size: 20
+
+			MDRaisedButton:
+				text: "Login"
+				size_hint: .4, .1
+				pos_hint: {"center_x":.5, "center_y":.25}
+				on_release:
+					root.login()
+
+	Screen:
+		name: 'screen2'
+		id: screen2 
+		FloatLayout:
+			MDRaisedButton:
+				size_hint: .5 , .2
+				pos_hint: {'center_x': .5, "center_y": .75}
+				text: "Find User"
+				font_size: 20
+				on_release:
+					root.transition.direction  = 'left'
+					root.current = "auto_rep_screen"
+
+			MDRaisedButton:
+				size_hint: .5 , .2
+				pos_hint: {'center_x': .5, "center_y": .5}
+				text: "super spam"
+				font_size: 20
+				on_release:
+					root.transition.direction  = 'left'
+					root.current = "spam_screen"
+	
+			MDRaisedButton:
+				size_hint: .5 , .2
+				pos_hint: {'center_x': .5, "center_y": .25}
+				text: "exit"
+				font_size: 20
+				on_release:
+					app.stop()
+
+			ImageButton: 
+				id: pic1
+				size_hint: .1,.1
+				pos_hint: {'center_x':.9, 'center_y':.9}
+				source: app.account_icon
+				on_release: 
+					root.show_setting()
+
+	Screen:
+		name: "spam_screen"
+		id: spam_screen
+
+		FloatLayout:
+
+			#Adding 3 more textinputs taking the 
+			#Spam text 
+			#Repeat time 
+			#User ID to send message 
+
+			#1 submit button and read fbchat documentation 
+			MDTextField:
+				id: name
+				required: True
+			    hint_text: "Person name:"
+			    mode: "rectangle"
+				size_hint: .8 , .1
+				pos_hint: {"center_x":.5, "center_y":.9}
+				multiline: False
+				font_size: 20
+
+			MDTextField:
+				id: times
+				required: True
+			    hint_text: "Number(times):"
+			    mode: "rectangle"
+				size_hint: .8 , .1
+				pos_hint: {"center_x":.5, "center_y":.75}
+				multiline: False
+				font_size: 20
+
+			MDTextField:
+				id: text_input
+			    hint_text: "Sending text:"
+				required: True
+			    mode: "fill"
+			    fill_color: 0, 0, 0, .4
+			    size_hint: .85 , .35
+				pos_hint: {"center_x":.5, "center_y":.45}
+
+			MDLabel:
+				text: root.error
+				pos_hint: {'center_x':.75, 'center_y':.05}
+				color: (1,0,0,1)
+
+			MDRoundFlatButton:
+				text: "Submit"
+				size_hint: .4, .1
+				pos_hint: {"center_x":.5, "center_y":.15}
+				md_bg_color: 0, 0, 1, 1
+				on_release:
+					root.show_dialog()
+
+			MDIconButton:
+				icon: "arrow-left-bold"
+				pos_hint: {"center_x":.05,"top":1}
+				size_hint: .2, .1 
+				on_release: 
+					root.transition.direction  = 'right'
+					root.current = "screen2"
+
+	Screen:
+		name: "auto_rep_screen"
+		FloatLayout:
+			MDIconButton:
+				icon: "arrow-left-bold"
+				pos_hint: {"center_x":.05,"top":1}
+				size_hint: .2, .1 
+				on_release: 
+					root.transition.direction  = 'right'
+					root.current = "screen2"
+
+
+
+##################
+			MDIconButton:
+				icon: "arrow-left-drop-circle"
+				pos_hint: {"center_x":.4, "center_y":.87}
+				size_hint: .12, .1 
+				on_release:
+					root.back()
+
+			MDIconButton:
+				icon: "arrow-right-drop-circle"
+				pos_hint: {"center_x":.6, "center_y":.87}
+				size_hint: .12, .1
+				on_release:
+					root.next()
+
+#####################
+
+			MDTextField:
+				id: search
+				required: True
+			    hint_text: "Search for:"
+			    mode: "rectangle"
+				size_hint: .8 , .1
+				pos_hint: {"center_x":.5, "center_y":.75}
+				multiline: False
+				font_size: 20
+
+		    ScrollView:
+		    	id: scrview
+		        size_hint: .8, .4  
+	            pos_hint: {'center_x':.5, 'center_y':.45}
+
+
+				Label:
+					text:root.ID
+					pos_hint: {'x':.1, 'center_y':.6}
+					text_size: self.width, None 
+					size_hint_y: None
+					height: self.texture_size[1]
+
+			MDRoundFlatButton:
+				text: "Search"
+				size_hint: .4, .1
+				pos_hint: {"center_x":.5, "center_y":.15}
+				md_bg_color: 0, 0, 1, 1
+				on_release:
+					root.fetch_engine()
+
+			MDIconButton:
+				icon: "clipboard-text-outline"
+				pos_hint: {"center_y": .21, 'center_x':.85}
+				on_release: 
+					root.copy()		
+
+			MDLabel:
+				text: root.error2
+				pos_hint: {'center_x':.75, 'center_y':.05}
+				color: (1,0,0,1)
+
+			OnlineImage:
+				id: online
+				size_hint: (.1, .1)  
+				pos_hint: {'center_x': .5, 'center_y':.87}
+				source: root.user_icon
+			
